@@ -14,12 +14,17 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatCardModule} from '@angular/material/card';
 import { DishdetailComponent } from './menu/dishdetail/dishdetail.component';
+import { DishService } from './services/dish.service';
+import { HeaderComponent } from './shared/header/header.component';
+import { FooterComponent } from './shared/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
-    DishdetailComponent
+    DishdetailComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +39,7 @@ import { DishdetailComponent } from './menu/dishdetail/dishdetail.component';
     MatGridListModule,
     MatCardModule
   ],
-  providers: [],
+  providers: [DishService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
