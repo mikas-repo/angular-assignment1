@@ -1,0 +1,33 @@
+<div class="container" fxLayout="column" fxLayoutGap="10px">
+
+  <div fxFlex>
+      <div>
+          <h3>Menu</h3>
+          <mat-divider></mat-divider>
+      </div>
+  </div>
+
+  <!-- mat list will be treated as one unit [fxFlex] -->
+  <div fxFlex>
+      <mat-grid-list cols="2" rowHeight="200px">
+          <mat-grid-tile *ngFor="let dish of dishes" (click)="onSelect(dish)">
+              <img matListAvatar height="200px" src={{dish.image}} alt={{dish.name}}>
+              <mat-grid-tile-footer *ngIf="dish">
+                  <h1 matLine> {{dish.name | uppercase}} </h1>
+                  <!-- <p matLine> -->
+                  <!-- <span> {{dish.description}} </span> -->
+                  <!-- </p> -->
+              </mat-grid-tile-footer>
+
+          </mat-grid-tile>
+      </mat-grid-list>
+  </div>
+</div>
+
+<div class="container" >
+  <div fxFlex *ngIf="selectedDish">
+      <h1 [style.margin-top]="'20px'">Dish Details</h1>
+      <mat-divider [style.margin-bottom]="'20px'"></mat-divider>
+      <app-dishdetail [dish]="selectedDish"></app-dishdetail>
+  </div>
+</div>
