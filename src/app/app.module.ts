@@ -17,6 +17,9 @@ import { DishdetailComponent } from './menu/dishdetail/dishdetail.component';
 import { DishService } from './services/dish.service';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { HomeComponent } from './shared/home/home.component';
+import { AboutComponent } from './shared/about/about.component';
+import { ContactComponent } from './shared/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,10 @@ import { FooterComponent } from './shared/footer/footer.component';
     MenuComponent,
     DishdetailComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    HomeComponent,
+    AboutComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
