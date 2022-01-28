@@ -14,12 +14,14 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatCardModule} from '@angular/material/card';
 import { DishdetailComponent } from './menu/dishdetail/dishdetail.component';
-import { DishService } from './services/dish.service';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HomeComponent } from './shared/home/home.component';
 import { AboutComponent } from './shared/about/about.component';
 import { ContactComponent } from './shared/contact/contact.component';
+import { DishService } from './services/dish.service';
+import { LeaderComponent } from './leader/leader.component';
+import { LeaderService } from './services/leader.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { ContactComponent } from './shared/contact/contact.component';
     FooterComponent,
     HomeComponent,
     AboutComponent,
-    ContactComponent
+    ContactComponent,
+    LeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,7 @@ import { ContactComponent } from './shared/contact/contact.component';
     MatGridListModule,
     MatCardModule
   ],
-  providers: [DishService],
+  providers: [DishService, LeaderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
