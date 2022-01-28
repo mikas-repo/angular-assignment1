@@ -1,1 +1,36 @@
-<p>home works!</p>
+<div class="container"
+     fxLayout="row"
+     fxLayout.sm="column"
+     fxLayout.xs="column"
+     fxLayoutAlign.gt-md="space-around center"
+     fxLayoutGap="10px">
+
+<mat-card *ngIf="featuredDish" fxFlex>
+  <mat-card-header>
+    <div mat-card-avatar></div>
+    <mat-card-title>
+      <h3>{{featuredDish.name | uppercase}}</h3>
+    </mat-card-title>
+  </mat-card-header>
+  <img mat-card-image src={{featuredDish.image}} alt={{featuredDish.name}}>
+  <mat-card-content>
+    <p>{{featuredDish.description}}
+    </p>
+  </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="featuredPromotions" fxFlex>
+  <mat-card-header>
+    <div mat-card-avatar></div>
+    <mat-card-title>
+      <h3>{{featuredPromotions.name | uppercase}}</h3>
+    </mat-card-title>
+  </mat-card-header>
+  <img mat-card-image src={{featuredPromotions.image}} alt={{featuredPromotions.name}}>
+  <mat-card-content>
+    <p>{{featuredPromotions.description}}
+    </p>
+  </mat-card-content>
+</mat-card>
+
+</div>
