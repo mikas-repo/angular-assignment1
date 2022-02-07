@@ -7,8 +7,9 @@
       </div>
   </div>
 
+
   <!-- mat list will be treated as one unit [fxFlex] -->
-  <div fxFlex>
+  <div fxFlex *ngIf="dishes">
       <mat-grid-list cols="2" rowHeight="200px">
           <mat-grid-tile *ngFor="let dish of dishes" [routerLink]="['/dishdetail', dish.id]" (click)="onSelect(dish)">
               <img matListAvatar height="200px" src={{dish.image}} alt={{dish.name}}>
@@ -24,6 +25,10 @@
   </div>
 </div>
 
+<div [hidden]="dishes">
+    <mat-spinner></mat-spinner>
+    <h4>Loading . . . please wait</h4>
+</div>
 <!-- <div class="container" >
   <div fxFlex *ngIf="selectedDish">
       <h1 [style.margin-top]="'20px'">Dish Details</h1>
