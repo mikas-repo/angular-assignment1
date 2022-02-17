@@ -12,8 +12,8 @@ import { switchMap } from 'rxjs';
   styleUrls: ['./dishdetail.component.scss'],
 })
 export class DishdetailComponent implements OnInit {
-  dish!: Dish;
   dishIds!: string[];
+  dish!:Dish;
   prev!: string;
   next!: string;
 
@@ -26,7 +26,7 @@ export class DishdetailComponent implements OnInit {
   ngOnInit() {
     this.dishService.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
     this.activatedRoute.params.pipe(switchMap((params: Params) => this.dishService.getDish(params['id'])))
-    .subscribe((dish:any) => {dish = dish; this.setPrevNext(dish.id); });
+    .subscribe((dish:any) => {this.dish = dish; this.setPrevNext(dish.id); });
   }
 
   goBack(): void {
