@@ -33,7 +33,7 @@ export class DishdetailComponent implements OnInit {
   showTicks = true;
   step = 1;
   thumbLabel = true;
-  value = 0;
+  value = 5;
   vertical = false;
   tickInterval = 1;
 
@@ -92,7 +92,7 @@ export class DishdetailComponent implements OnInit {
   createComment(){
     this.commentForm = this.fb.group({
       author: [null, [Validators.required, Validators.minLength(5)]],
-      rating:[null, [Validators.required]],
+      rating:[5, [Validators.required]],
       comment:[null, [Validators.required, Validators.minLength(10)]]
     })
 
@@ -148,7 +148,7 @@ export class DishdetailComponent implements OnInit {
 
     this.commentForm.reset({
       author:'',
-      aring:'',
+      rating:5,
       comment:'',
     });
   }
