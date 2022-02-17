@@ -1,31 +1,79 @@
-<div class="container" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column"
-    fxLayoutAlign.gt-md="space-around center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+<div
+  class="container"
+  fxLayout="row"
+  fxLayout.sm="column"
+  fxLayout.xs="column"
+  fxLayoutAlign.gt-md="space-around center"
+  fxLayoutGap="10px"
+  fxLayoutGap.xs="0"
+>
+  <div fxFlex="40">
+    <mat-card>
+      <mat-card-title>{{ dish?.name | uppercase }}</mat-card-title>
+      <img mat-card-image src="{{ dish?.image }}" alt="Photo of a Shiba Inu" />
+      <mat-card-content>
+        <p>{{ dish?.description }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button [routerLink]="['/dishdetail', prev]">
+          <span class="fa fa-chevron-left fa-lg"></span>Previous
+        </button>
+        <span class="flex-spacer"></span>
+        <button mat-button [routerLink]="['/dishdetail', next]">
+          <span class="fa fa-chevron-right fa-lg"></span>Next
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 
-    <div fxFlex="40">
-        <mat-card>
-            <mat-card-title>{{dish?.name | uppercase}}</mat-card-title>
-            <img mat-card-image src={{dish?.image}} alt="Photo of a Shiba Inu">
-            <mat-card-content>
-                <p>{{dish?.description}}</p>
-            </mat-card-content>
-            <mat-card-actions>
-                <button mat-button [routerLink]="['/dishdetail', prev]"><span class="fa fa-chevron-left fa-lg"></span>Previous</button>
-                <span class="flex-spacer"></span>
-                <button mat-button [routerLink]="['/dishdetail', next]"><span class="fa fa-chevron-right fa-lg"></span>Next</button>
-              </mat-card-actions>
-        </mat-card>
-    </div>
-
-<div fxFlex="40">
-<mat-card class="example-card" fxLayout="column">
-<mat-list>
-    <h3 matheader>Comments</h3>
-    <mat-list-item *ngFor="let com of dish.comments">
-        <h3 matLine> {{com.comment}} </h3>
-        <p matLine> {{com.rating}} Stars</p>
-        <p matLine class="demo-2">--{{com.author}} {{com.date | date:'mediumDate'}}</p>
-    </mat-list-item>
-</mat-list>
-</mat-card>
-</div>
+  <div fxFlex="40">
+    <mat-card class="example-card" fxLayout="column">
+      <mat-list>
+        <h3 matheader>Comments</h3>
+        <mat-list-item *ngFor="let com of dish.comments">
+          <h3 matLine>{{ com.comment }}</h3>
+          <p matLine>{{ com.rating }} Stars</p>
+          <p matLine class="demo-2">
+            --{{ com.author }} {{ com.date | date: "mediumDate" }}
+          </p>
+        </mat-list-item>
+        <mat-list-item *ngIf="typing">
+          <h3 matLine *ngIf="commentForm.controls['comment'].valid">{{commentForm.value.comment}}</h3>
+          <p matLine *ngIf="commentForm.controls['rating'].valid">{{commentForm.value.rating}} Stars</p>
+          <p matLine class="demo-2" *ngIf="commentForm.controls['author'].valid">--{{commentForm.value.author}} <span *ngIf="!typing">{{convertedDate}}</span></p>
+        </mat-list-item>
+      </mat-list>
+      <form [formGroup]="commentForm" fxLayout="column" (ngSubmit)="submitComment()">
+        <div >
+          <mat-form-field appearance="legacy" style="width: 100%;">
+            <mat-label>name</mat-label>
+            <input matInput formControlName="author" placeholder="Name" required/>
+            <mat-error *ngIf="formErrors.author">{{formErrors.author}}</mat-error>
+          </mat-form-field>
+          <mat-slider style="width: 100%;"
+            class="example-margin"
+            [disabled]="disabled"
+            [invert]="invert"
+            [max]="max"
+            [min]="min"
+            [step]="step"
+            [thumbLabel]="thumbLabel"
+            [tickInterval]="getSliderTickInterval()"
+            formControlName="rating"
+            [vertical]="vertical"
+            aria-labelledby="example-name-label"
+            required
+          >
+          </mat-slider>
+          <mat-error *ngIf="formErrors.rating">{{formErrors.rating}}</mat-error>
+          <mat-form-field appearance="legacy" style="width: 100%;">
+            <mat-label>Comment</mat-label>
+            <textarea matInput formControlName="comment"></textarea>
+          </mat-form-field>
+          <mat-error *ngIf="formErrors.comment">{{formErrors.comment}}</mat-error>
+        </div>
+        <button mat-raised-button color="primary" [disabled]="commentForm.invalid" style="width: fit-content;">Primary</button>
+      </form>
+    </mat-card>
+  </div>
 </div>
