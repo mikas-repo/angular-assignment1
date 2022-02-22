@@ -11,8 +11,8 @@
   <!-- mat list will be treated as one unit [fxFlex] -->
   <div fxFlex *ngIf="dishes">
       <mat-grid-list cols="2" rowHeight="200px">
-          <mat-grid-tile *ngFor="let dish of dishes" [routerLink]="['/dishdetail', dish.id]" (click)="onSelect(dish)">
-              <img matListAvatar height="200px" src={{dish.image}} alt={{dish.name}}>
+          <mat-grid-tile *ngFor="let dish of dishes" [routerLink]="['/dishdetail', dish.id]" >
+              <img matListAvatar height="200px" src={{baseUrl +  dish.image}} alt={{dish.name}}>
               <mat-grid-tile-footer *ngIf="dish">
                   <h1 matLine> {{dish.name | uppercase}} </h1>
                   <!-- <p matLine> -->
