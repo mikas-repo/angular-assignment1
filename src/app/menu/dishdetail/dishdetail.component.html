@@ -10,7 +10,7 @@
   <div fxFlex="40">
     <mat-card>
       <mat-card-title>{{ dish?.name | uppercase }}</mat-card-title>
-      <img mat-card-image src="{{ dish?.image }}" alt="Photo of a Shiba Inu" />
+      <img mat-card-image src="{{BaseURL +  dish?.image }}" alt="Photo of a Shiba Inu" />
       <mat-card-content>
         <p>{{ dish?.description }}</p>
       </mat-card-content>

@@ -25,6 +25,10 @@ export class DishdetailComponent implements OnInit {
 
   commentForm!:FormGroup;
 
+  dishCopy:Dish;
+
+  errMess:string;
+
   autoTicks = false;
   disabled = false;
   invert = false;
@@ -69,13 +73,14 @@ export class DishdetailComponent implements OnInit {
     private dishService: DishService,
     private location: Location,
     private fb:FormBuilder,
-    @Inject('baseUrl') private baseUrl
+    @Inject('BaseURL') public BaseURL
   ) {this.createComment()}
 
   ngOnInit() {
-    this.dishService.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
-    this.activatedRoute.params.pipe(switchMap((params: Params) => this.dishService.getDish(params['id'])))
-    .subscribe((dish:any) => {this.dish = dish; this.setPrevNext(dish.id); });
+    this.activatedRoute.params
+      .pipe(switchMap((params: Params) => this.dishService.getDish(params['id'])))
+      .subscribe(dish => { this.dish = dish; this.dishCopy = dish; this.setPrevNext(dish.id); },
+        errmess => this.errMess = <any>errmess );
     
   }
 
@@ -145,7 +150,15 @@ export class DishdetailComponent implements OnInit {
       date: this.convertedDate
     }
 
-    this.dishes[0].comments?.push(data);
+    // this.dishCopy.comments.push(data);
+
+    // this.dishes[0].comments?.push(data);
+    this.dishCopy.comments.push(data);
+    this.dishService.putDish(this.dishCopy)
+      .subscribe(dish => {
+        this.dish = dish; this.dishCopy = dish;
+      },
+      errmess => { this.dish = null; this.dishCopy = null; this.errMess = <any>errmess; });
 
     this.commentForm.reset({
       author:'',

@@ -38,7 +38,8 @@ import { LeaderService } from './services/leader.service';
 import { LoginComponent } from './shared/login/login.component';
 
 // baseUrl
-import {baseUrl} from './shared/baseUrl';
+import {baseURL} from './shared/baseUrl';
+import { HighlightDirective } from './directives/highlight.directive';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import {baseUrl} from './shared/baseUrl';
     ContactComponent,
     LeaderComponent,
     LoginComponent,
+    HighlightDirective,
   ],
   imports: [
     BrowserModule,
@@ -81,7 +83,7 @@ import {baseUrl} from './shared/baseUrl';
   entryComponents:[
     LoginComponent
   ],
-  providers: [DishService, LeaderService, {provide: 'baseUrl', useValue: baseUrl}],
+  providers: [DishService, LeaderService, {provide: 'BaseURL', useValue: baseURL}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
