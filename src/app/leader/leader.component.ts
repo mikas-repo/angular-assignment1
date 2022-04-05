@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Leader } from '../models/leader/leader';
 import { LeaderService } from '../services/leader.service';
 
@@ -11,7 +11,9 @@ export class LeaderComponent implements OnInit {
 
   @Input() leaders!:Leader[];
 
-  constructor(private leaderService:LeaderService) { }
+  errMess:string;
+
+  constructor(private leaderService:LeaderService, @Inject('BaseURL') public baseURL) { }
 
   ngOnInit(): void {
   }

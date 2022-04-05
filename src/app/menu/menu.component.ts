@@ -2,11 +2,19 @@ import { Component, Inject, OnInit} from '@angular/core';
 import { Dish } from 'src/app/models/dish';
 import { DishService } from '../services/dish.service';
 
+import { flyInOut } from '../animations/App.animation';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
+  host:{
+    '[@flyInOut]':'true',
+    'style':'display:block'
+  },
+  animations:[
+    flyInOut
+  ]
 })
 export class MenuComponent implements OnInit {
 

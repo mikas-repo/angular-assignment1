@@ -1,9 +1,20 @@
 <mat-list>
 <mat-list-item *ngFor="let leader of leaders">
-    <img matListAvatar src={{leader.image}} alt={{leader.name}}>
+    <img matListAvatar src="{{baseURL + leader.image}}" alt={{leader.name}}>
     <h1 matLine> {{leader.name}} </h1>
     <p matLine>
       <span> {{leader.description}} </span>
     </p>
   </mat-list-item>
 </mat-list>
+
+<div [hidden]="leaders || errMess">
+  <!-- <mat-spinner></mat-spinner> -->
+  <h4 style="color:red">Loading . . . Please Wait</h4>
+</div>
+
+<div *ngIf="errMess">
+  <!-- <mat-spinner></mat-spinner> -->
+  <h2>Error</h2>
+  <h4>{{errMess}}</h4>
+</div>

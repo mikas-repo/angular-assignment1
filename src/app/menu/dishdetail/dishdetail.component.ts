@@ -6,15 +6,26 @@ import { DishService } from 'src/app/services/dish.service';
 import { switchMap } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { visibility, flyInOut } from 'src/app/animations/App.animation';
 import {Dish} from '../../models/dish';
 import {DISHES} from '../../models/dishes';
- 
+
 
 @Component({
   selector: 'app-dishdetail',
   templateUrl: './dishdetail.component.html',
   styleUrls: ['./dishdetail.component.scss'],
+  host:{
+    '[@flyInOut]':'true',
+    'style':'display:block'
+  },
+
+  animations: [
+    visibility(),
+    flyInOut()
+  ]
 })
+
 export class DishdetailComponent implements OnInit {
   dishIds!: string[];
   dish!:Dish;
@@ -25,7 +36,7 @@ export class DishdetailComponent implements OnInit {
 
   commentForm!:FormGroup;
 
-  dishCopy:Dish;
+  dishCopy!:Dish;
 
   errMess:string;
 
@@ -40,6 +51,8 @@ export class DishdetailComponent implements OnInit {
   value = 5;
   vertical = false;
   tickInterval = 1;
+
+  visibility = 'shown';
 
   d1:Date = new Date()
   convertedDate = this.d1.toISOString().slice(0, -5)
@@ -77,11 +90,11 @@ export class DishdetailComponent implements OnInit {
   ) {this.createComment()}
 
   ngOnInit() {
-    this.activatedRoute.params
-      .pipe(switchMap((params: Params) => this.dishService.getDish(params['id'])))
-      .subscribe(dish => { this.dish = dish; this.dishCopy = dish; this.setPrevNext(dish.id); },
-        errmess => this.errMess = <any>errmess );
-    
+  
+    this.activatedRoute.params.pipe(switchMap((params: Params) => { this.visibility = 'hidden'; return this.dishService.getDish(params['id']); }))
+    .subscribe(dish => { this.dish = dish; this.dishCopy = dish; this.setPrevNext(dish.id); this.visibility = 'shown'; },
+      errmess => this.errMess = <any>errmess);
+  
   }
 
   goBack(): void {
@@ -89,9 +102,11 @@ export class DishdetailComponent implements OnInit {
   }
 
   setPrevNext(dishId: string) {
+    
     const index = this.dishIds.indexOf(dishId);
     this.prev = this.dishIds[(this.dishIds.length + index - 1) % this.dishIds.length];
     this.next = this.dishIds[(this.dishIds.length + index + 1) % this.dishIds.length];
+ 
   }
 
 

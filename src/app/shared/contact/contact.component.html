@@ -34,9 +34,11 @@
     </div>
   </div>
 
-  <div fxFlex fxFlexOffset="20px" class="form-size">
+
+
+  <div fxFlex fxFlexOffset="20px" class="form-size" *ngIf="!submitted || closePreview">
     <h3>Send us your feedback!</h3>
-    <form [formGroup]="feedbackForm" #fform="ngForm" novalidate (ngSubmit)="onSubmitFeedback()">
+    <form [formGroup]="feedbackForm" #fform="ngForm" novalidate (ngSubmit)="onSubmitFeedback()" >
       <p>
         <mat-form-field class="half-width">
           <input matInput formControlName="firstname" placeholder="First Name" type="text" required>
@@ -62,7 +64,7 @@
           <mat-slide-toggle formControlName="agree">Wanna get Emails?</mat-slide-toggle>
         </td>
         <td>
-          <mat-select placeholder="How?" formControlName="contactType">
+          <mat-select placeholder="How?" formControlName="contacttype">
             <mat-option *ngFor="let ctype of contacttype" [value]="ctype">
               {{ctype}}
             </mat-option>
@@ -79,4 +81,24 @@
       <button type="submit" mat-raised-button color="primary" [disabled]="feedbackForm.invalid">Send Feedback</button>
     </form>
   </div>
+
+
+  <div fxFlex fxFlexOffset="20px" class="form-size" *ngIf="!feedbackResponse && submitted">
+    <h2>Submitting Form</h2>
+    <mat-spinner></mat-spinner>
+  </div>
+
+
+  <div fxFlex fxFlexOffset="20px" class="form-size" *ngIf="feedbackResponse && !closePreview">
+    <h1>Your Submission</h1>
+    <p>First Name: {{feedback.firstName}}</p>
+    <p>Last Name: {{feedback.lastName}}</p>
+    <p>Tel. Number: {{feedback.telnum}}</p>
+    <p>Email: {{feedback.email}}</p>
+    <p>Contact you?: {{feedback.agree}}</p>
+    <p>How?: {{feedback.contactType}}</p>
+    <p>Feedbakc: {{feedback.message}}</p>
+  </div>
+  <!-- </div> -->
+
 </div>
